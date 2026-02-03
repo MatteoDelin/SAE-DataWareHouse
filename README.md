@@ -1,7 +1,7 @@
 # SAE-DataWhareHouse
 # Rapport de Projet SAÉ 302 : Business Intelligence appliquée au secteur du Manga
 
-**Équipe :** [Vos Noms]  
+**Équipe :** [DELIN Mattéo - ALSHAWWA Tasnim - GROSJEAN Violette]  
 **Promotion :** SD2  
 **Date :** Février 2026  
 **Outil :** Power BI  
