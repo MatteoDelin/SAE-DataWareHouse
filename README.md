@@ -46,16 +46,16 @@ Le dataset contient des informations variées, dont certaines nécessitent un tr
 ---
 
 ## 3. Mise en œuvre du Pipeline BI
-
 ### 3.1 ETL et Nettoyage des données (Power Query)
 Conformément aux exigences de la SAÉ, nous avons sélectionné un jeu de données "sale" pour appliquer les transformations suivantes :
 1. **Gestion des valeurs manquantes :** Identification des scores nuls et remplacement par la moyenne globale ou suppression selon la pertinence.
 2. **Harmonisation des types :** Conversion des colonnes de dates (souvent au format texte) en format Date reconnu par Power BI.
 3. **Éclatement des colonnes :** Les genres étant souvent listés dans une seule cellule (ex: "Action, Adventure, Fantasy"), nous avons procédé à un dégroupement pour permettre une analyse par catégorie.
 4. **Filtrage :** Suppression des doublons et des œuvres sans aucune donnée statistique exploitable.
+PS. On n'a pas utilisé Power BI mais Spoon
 
 ### 3.2 Modélisation (Data Warehouse)
-Nous avons structuré nos données selon un **modèle en étoile** pour garantir la fluidité des filtres :
+Nous avons structuré nos données selon un **modèle en flocon** pour garantir la fluidité des filtres :
 * **Table de Faits :** Regroupe les mesures (Scores, Membres, Nombre de Volumes).
 * **Dimensions :** Tables de référence pour le Temps (Calendrier), les Genres, et les Statuts de publication.
 
