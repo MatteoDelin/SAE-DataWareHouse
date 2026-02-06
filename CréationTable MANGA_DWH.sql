@@ -14,5 +14,13 @@ CREATE TABLE IF NOT EXISTS dim_genre (
   genre_nom     VARCHAR(50) NOT NULL
 );
 
-select * from dim_genre
+CREATE TABLE IF NOT EXISTS dim_demographic (
+  demographic_id       SERIAL PRIMARY KEY,
+  demographic_nom     VARCHAR(50) NOT NULL
+);
 
+CREATE TABLE IF NOT EXISTS DIM_date (
+    date VARCHAR(50) PRIMARY KEY
+);
+
+select * from dim_date

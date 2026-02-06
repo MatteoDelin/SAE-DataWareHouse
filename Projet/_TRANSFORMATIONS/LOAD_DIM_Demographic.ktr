@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>LOAD_DIM_Publisher</name>
+    <name>LOAD_DIM_Demographic</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -427,10 +427,10 @@
     <clusterschemas>
     </clusterschemas>
     <created_user>-</created_user>
-    <created_date>2026/02/05 09:10:34.989</created_date>
+    <created_date>2026/02/06 14:05:16.262</created_date>
     <modified_user>-</modified_user>
-    <modified_date>2026/02/05 09:10:34.989</modified_date>
-    <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA=</key_for_session_key>
+    <modified_date>2026/02/06 14:05:16.262</modified_date>
+    <key_for_session_key/>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
@@ -488,7 +488,7 @@
   </connection>
   <order>
     <hop>
-      <from>Extract_Best_Sellig_manga</from>
+      <from>Extraction Best Selling</from>
       <to>Altération structure flux</to>
       <enabled>Y</enabled>
     </hop>
@@ -503,23 +503,8 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Décomposition Champs</from>
-      <to>Décomposition Champs 2</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Décomposition Champs 2</from>
-      <to>Tri lignes</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>Altération structure flux</from>
-      <to>Filtrage lignes</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Filtrage lignes</from>
-      <to>Décomposition Champs</to>
+      <to>Tri lignes</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -536,7 +521,8 @@
     </partitioning>
     <fields>
       <field>
-        <name>Publisher</name>
+        <name>Demographic</name>
+        <rename>demographic_nom</rename>
       </field>
       <select_unspecified>N</select_unspecified>
     </fields>
@@ -549,138 +535,13 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>346</xloc>
-      <yloc>261</yloc>
+      <xloc>352</xloc>
+      <yloc>144</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Décomposition Champs</name>
-    <type>FieldSplitter</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <splitfield>Publisher</splitfield>
-    <delimiter>/</delimiter>
-    <enclosure/>
-    <fields>
-      <field>
-        <name>publisher_nom</name>
-        <id/>
-        <idrem>N</idrem>
-        <type>String</type>
-        <format/>
-        <group/>
-        <decimal/>
-        <currency/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <nullif/>
-        <ifnull/>
-        <trimtype>none</trimtype>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>624</xloc>
-      <yloc>256</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Décomposition Champs 2</name>
-    <type>FieldSplitter</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <splitfield>publisher_nom</splitfield>
-    <delimiter>,</delimiter>
-    <enclosure/>
-    <fields>
-      <field>
-        <name>publisher_nom</name>
-        <id/>
-        <idrem>N</idrem>
-        <type>String</type>
-        <format/>
-        <group/>
-        <decimal/>
-        <currency/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <nullif/>
-        <ifnull/>
-        <trimtype>none</trimtype>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>784</xloc>
-      <yloc>256</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Dédoublonnage</name>
-    <type>Unique</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <count_rows>N</count_rows>
-    <count_field/>
-    <reject_duplicate_row>N</reject_duplicate_row>
-    <error_description/>
-    <fields>
-      <field>
-        <name>publisher_nom</name>
-        <case_insensitive>N</case_insensitive>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>1040</xloc>
-      <yloc>256</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Extract_Best_Sellig_manga</name>
+    <name>Extraction Best Selling</name>
     <type>CsvInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -706,7 +567,7 @@
     <encoding>UTF-8</encoding>
     <fields>
       <field>
-        <name>ï»¿Manga series</name>
+        <name>﻿Manga series</name>
         <type>String</type>
         <format/>
         <currency>€</currency>
@@ -723,7 +584,7 @@
         <currency>€</currency>
         <decimal>,</decimal>
         <group> </group>
-        <length>46</length>
+        <length>43</length>
         <precision>-1</precision>
         <trim_type>none</trim_type>
       </field>
@@ -734,7 +595,7 @@
         <currency>€</currency>
         <decimal>,</decimal>
         <group> </group>
-        <length>45</length>
+        <length>41</length>
         <precision>-1</precision>
         <trim_type>none</trim_type>
       </field>
@@ -745,7 +606,7 @@
         <currency>€</currency>
         <decimal>,</decimal>
         <group> </group>
-        <length>14</length>
+        <length>13</length>
         <precision>-1</precision>
         <trim_type>none</trim_type>
       </field>
@@ -767,7 +628,7 @@
         <currency>€</currency>
         <decimal>,</decimal>
         <group> </group>
-        <length>27</length>
+        <length>24</length>
         <precision>-1</precision>
         <trim_type>none</trim_type>
       </field>
@@ -793,6 +654,39 @@
         <precision>0</precision>
         <trim_type>none</trim_type>
       </field>
+      <field>
+        <name>name</name>
+        <type>String</type>
+        <format/>
+        <currency>€</currency>
+        <decimal>,</decimal>
+        <group> </group>
+        <length>17</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>count</name>
+        <type>Integer</type>
+        <format>#</format>
+        <currency>€</currency>
+        <decimal>,</decimal>
+        <group> </group>
+        <length>15</length>
+        <precision>0</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>id</name>
+        <type>Integer</type>
+        <format>#</format>
+        <currency>€</currency>
+        <decimal>,</decimal>
+        <group> </group>
+        <length>15</length>
+        <precision>0</precision>
+        <trim_type>none</trim_type>
+      </field>
     </fields>
     <attributes/>
     <cluster_schema/>
@@ -803,52 +697,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>170</xloc>
-      <yloc>261</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Filtrage lignes</name>
-    <type>FilterRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <send_true_to/>
-    <send_false_to>Décomposition Champs</send_false_to>
-    <compare>
-      <condition>
-        <negated>N</negated>
-        <leftvalue>Publisher</leftvalue>
-        <function>REGEXP</function>
-        <rightvalue/>
-        <value>
-          <name>constant</name>
-          <type>String</type>
-          <text>.*\(.*</text>
-          <length>-1</length>
-          <precision>-1</precision>
-          <isnull>N</isnull>
-          <mask/>
-        </value>
-      </condition>
-    </compare>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>480</xloc>
-      <yloc>256</yloc>
+      <xloc>160</xloc>
+      <yloc>144</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -865,11 +715,11 @@
     </partitioning>
     <connection>Postgre_MANGADWH</connection>
     <schema>public</schema>
-    <table>dim_publisher</table>
+    <table>dim_demographic</table>
     <commit>1000</commit>
     <truncate>Y</truncate>
     <ignore_errors>N</ignore_errors>
-    <use_batch>N</use_batch>
+    <use_batch>Y</use_batch>
     <specify_fields>Y</specify_fields>
     <partitioning_enabled>N</partitioning_enabled>
     <partitioning_field/>
@@ -882,8 +732,8 @@
     <return_field/>
     <fields>
       <field>
-        <column_name>publisher_nom</column_name>
-        <stream_name>publisher_nom</stream_name>
+        <column_name>demographic_nom</column_name>
+        <stream_name>demographic_nom</stream_name>
       </field>
     </fields>
     <attributes/>
@@ -895,8 +745,43 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1168</xloc>
-      <yloc>256</yloc>
+      <xloc>720</xloc>
+      <yloc>144</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Dédoublonnage</name>
+    <type>Unique</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <count_rows>N</count_rows>
+    <count_field/>
+    <reject_duplicate_row>N</reject_duplicate_row>
+    <error_description/>
+    <fields>
+      <field>
+        <name>demographic_nom</name>
+        <case_insensitive>N</case_insensitive>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>592</xloc>
+      <yloc>144</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -920,7 +805,7 @@
     <unique_rows>N</unique_rows>
     <fields>
       <field>
-        <name>publisher_nom</name>
+        <name>demographic_nom</name>
         <ascending>Y</ascending>
         <case_sensitive>N</case_sensitive>
         <collator_enabled>N</collator_enabled>
@@ -937,8 +822,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>928</xloc>
-      <yloc>256</yloc>
+      <xloc>480</xloc>
+      <yloc>144</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
