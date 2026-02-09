@@ -23,6 +23,7 @@ Ce projet a été réalisé dans le cadre de la **SAÉ 302 - Intégration de don
 ### 2.1 Extraction (Sources)
 * **Source :** Jeu de données public issu de Kaggle (données MyAnimeList) :
  https://www.kaggle.com/datasets/joshjms/kawaii
+
  https://www.kaggle.com/datasets/drahulsingh/best-selling-manga.
 * **Localisation :** `/DataSet/Manga_sales.csv`.
 * **Volume :** Plusieurs milliers de lignes représentant des œuvres uniques.
