@@ -1,4 +1,4 @@
-# 📊 Projet SAÉ 302 : Data Warehouse Manga Sales
+#  Projet SAÉ 302 : Data Warehouse Manga Sales
 
 **Équipe :** DELIN Mattéo - ALSHAWWA Tasnim - GROSJEAN Violette  
 **Promotion :** SD2 (IUT Lumière Lyon 2)  
@@ -7,7 +7,7 @@
 
 ---
 
-## 📝 1. Présentation du Projet
+##  1. Présentation du Projet
 Ce projet a été réalisé dans le cadre de la **SAÉ 302 - Intégration de données dans un datawarehouse**. L'objectif est de mettre en œuvre un processus décisionnel complet appliqué au secteur du manga, en transformant des données brutes en indicateurs stratégiques.
 
 ### Objectifs Décisionnels (Questions Métiers)
@@ -18,10 +18,10 @@ Ce projet a été réalisé dans le cadre de la **SAÉ 302 - Intégration de don
 
 ---
 
-## 🛠️ 2. Pipeline BI (Processus ETL)
+##  2. Pipeline BI (Processus ETL)
 
 ### 2.1 Extraction (Sources)
-* **Source :** Jeu de données public issu de Kaggle (données MyAnimeList).
+* **Source :** Jeu de données public issu de Kaggle (données MyAnimeList) : https://www.kaggle.com/datasets/joshjms/kawaii - https://www.kaggle.com/datasets/drahulsingh/best-selling-manga.
 * **Localisation :** `/DataSet/Manga_sales.csv`.
 * **Volume :** Plusieurs milliers de lignes représentant des œuvres uniques.
 
@@ -37,7 +37,7 @@ Les données nettoyées sont intégrées dans un entrepôt MySQL structuré selo
 
 ---
 
-## 🏗️ 3. Modélisation du Data Warehouse
+##  3. Modélisation du Data Warehouse
 La structure de la base de données est optimisée pour le reporting et définie dans le script SQL du dépôt.
 
 ### Table de Faits : `FACT_Manga_Sales`
@@ -58,7 +58,7 @@ Elle centralise les mesures quantitatives du projet :
 
 ---
 
-## 📂 4. Structure du Dépôt GitHub
+##  4. Structure du Dépôt GitHub
 * `/DataSet` : Fichier source brut (CSV).
 * `/Script_Python` : Analyse exploratoire des données.
 * `/SQL` : Scripts de création des tables et des contraintes d'intégrité (Primary & Foreign Keys).
