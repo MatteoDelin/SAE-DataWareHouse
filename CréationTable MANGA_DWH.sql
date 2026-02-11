@@ -1,4 +1,3 @@
-
 CREATE TABLE IF NOT EXISTS dim_author (
   author_id       SERIAL PRIMARY KEY,
   author_nom     VARCHAR(50) NOT NULL
@@ -54,6 +53,6 @@ CREATE TABLE FACT_Manga_Sales (
 );
 
 
-select * from fact_manga_sales;
+select * from dim_author;
 
 
