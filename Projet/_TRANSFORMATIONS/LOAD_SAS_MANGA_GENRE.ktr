@@ -430,7 +430,7 @@
     <created_date>2026/02/11 16:02:12.491</created_date>
     <modified_user>-</modified_user>
     <modified_date>2026/02/11 16:02:12.491</modified_date>
-    <key_for_session_key/>
+    <key_for_session_key>H4sIAAAAAAAA/wMAAAAAAAAAAAA=</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
@@ -1437,316 +1437,316 @@
         <stream_name>id</stream_name>
       </field>
       <field>
-        <column_name>Action</column_name>
+        <column_name>action</column_name>
         <stream_name>Action</stream_name>
       </field>
       <field>
-        <column_name>Adventure</column_name>
+        <column_name>adventure</column_name>
         <stream_name>Adventure</stream_name>
       </field>
       <field>
-        <column_name>Avant Garde</column_name>
-        <stream_name>Avant Garde</stream_name>
-      </field>
-      <field>
-        <column_name>Award Winning</column_name>
-        <stream_name>Award Winning</stream_name>
-      </field>
-      <field>
-        <column_name>Boys Love</column_name>
-        <stream_name>Boys Love</stream_name>
-      </field>
-      <field>
-        <column_name>Comedy</column_name>
+        <column_name>comedy</column_name>
         <stream_name>Comedy</stream_name>
       </field>
       <field>
-        <column_name>Drama</column_name>
+        <column_name>drama</column_name>
         <stream_name>Drama</stream_name>
       </field>
       <field>
-        <column_name>Fantasy</column_name>
+        <column_name>fantasy</column_name>
         <stream_name>Fantasy</stream_name>
       </field>
       <field>
-        <column_name>Girls Love</column_name>
-        <stream_name>Girls Love</stream_name>
-      </field>
-      <field>
-        <column_name>Gourmet</column_name>
+        <column_name>gourmet</column_name>
         <stream_name>Gourmet</stream_name>
       </field>
       <field>
-        <column_name>Horror</column_name>
+        <column_name>horror</column_name>
         <stream_name>Horror</stream_name>
       </field>
       <field>
-        <column_name>Mystery</column_name>
+        <column_name>mystery</column_name>
         <stream_name>Mystery</stream_name>
       </field>
       <field>
-        <column_name>Romance</column_name>
+        <column_name>romance</column_name>
         <stream_name>Romance</stream_name>
       </field>
       <field>
-        <column_name>Sci-Fi</column_name>
-        <stream_name>Sci-Fi</stream_name>
-      </field>
-      <field>
-        <column_name>Slice of Life</column_name>
-        <stream_name>Slice of Life</stream_name>
-      </field>
-      <field>
-        <column_name>Sports</column_name>
+        <column_name>sports</column_name>
         <stream_name>Sports</stream_name>
       </field>
       <field>
-        <column_name>Supernatural</column_name>
+        <column_name>supernatural</column_name>
         <stream_name>Supernatural</stream_name>
       </field>
       <field>
-        <column_name>Suspense</column_name>
+        <column_name>suspense</column_name>
         <stream_name>Suspense</stream_name>
       </field>
       <field>
-        <column_name>Ecchi</column_name>
+        <column_name>ecchi</column_name>
         <stream_name>Ecchi</stream_name>
       </field>
       <field>
-        <column_name>Erotica</column_name>
+        <column_name>erotica</column_name>
         <stream_name>Erotica</stream_name>
       </field>
       <field>
-        <column_name>Hentai</column_name>
+        <column_name>hentai</column_name>
         <stream_name>Hentai</stream_name>
       </field>
       <field>
-        <column_name>Adult Cast</column_name>
-        <stream_name>Adult Cast</stream_name>
-      </field>
-      <field>
-        <column_name>Anthropomorphic</column_name>
+        <column_name>anthropomorphic</column_name>
         <stream_name>Anthropomorphic</stream_name>
       </field>
       <field>
-        <column_name>CGDCT</column_name>
+        <column_name>cgdct</column_name>
         <stream_name>CGDCT</stream_name>
       </field>
       <field>
-        <column_name>Childcare</column_name>
+        <column_name>childcare</column_name>
         <stream_name>Childcare</stream_name>
       </field>
       <field>
-        <column_name>Combat Sports</column_name>
-        <stream_name>Combat Sports</stream_name>
-      </field>
-      <field>
-        <column_name>Crossdressing</column_name>
+        <column_name>crossdressing</column_name>
         <stream_name>Crossdressing</stream_name>
       </field>
       <field>
-        <column_name>Delinquents</column_name>
+        <column_name>delinquents</column_name>
         <stream_name>Delinquents</stream_name>
       </field>
       <field>
-        <column_name>Detective</column_name>
+        <column_name>detective</column_name>
         <stream_name>Detective</stream_name>
       </field>
       <field>
-        <column_name>Educational</column_name>
+        <column_name>educational</column_name>
         <stream_name>Educational</stream_name>
       </field>
       <field>
-        <column_name>Gag Humor</column_name>
-        <stream_name>Gag Humor</stream_name>
-      </field>
-      <field>
-        <column_name>Gore</column_name>
+        <column_name>gore</column_name>
         <stream_name>Gore</stream_name>
       </field>
       <field>
-        <column_name>Harem</column_name>
+        <column_name>harem</column_name>
         <stream_name>Harem</stream_name>
       </field>
       <field>
-        <column_name>High Stakes Game</column_name>
-        <stream_name>High Stakes Game</stream_name>
-      </field>
-      <field>
-        <column_name>Historical</column_name>
+        <column_name>historical</column_name>
         <stream_name>Historical</stream_name>
       </field>
       <field>
-        <column_name>Idols (Female)</column_name>
-        <stream_name>Idols (Female)</stream_name>
-      </field>
-      <field>
-        <column_name>Idols (Male)</column_name>
-        <stream_name>Idols (Male)</stream_name>
-      </field>
-      <field>
-        <column_name>Isekai</column_name>
+        <column_name>isekai</column_name>
         <stream_name>Isekai</stream_name>
       </field>
       <field>
-        <column_name>Iyashikei</column_name>
+        <column_name>iyashikei</column_name>
         <stream_name>Iyashikei</stream_name>
       </field>
       <field>
-        <column_name>Love Polygon</column_name>
-        <stream_name>Love Polygon</stream_name>
-      </field>
-      <field>
-        <column_name>Magical Sex Shift</column_name>
-        <stream_name>Magical Sex Shift</stream_name>
-      </field>
-      <field>
-        <column_name>Mahou Shoujo</column_name>
-        <stream_name>Mahou Shoujo</stream_name>
-      </field>
-      <field>
-        <column_name>Martial Arts</column_name>
-        <stream_name>Martial Arts</stream_name>
-      </field>
-      <field>
-        <column_name>Mecha</column_name>
+        <column_name>mecha</column_name>
         <stream_name>Mecha</stream_name>
       </field>
       <field>
-        <column_name>Medical</column_name>
+        <column_name>medical</column_name>
         <stream_name>Medical</stream_name>
       </field>
       <field>
-        <column_name>Memoir</column_name>
+        <column_name>memoir</column_name>
         <stream_name>Memoir</stream_name>
       </field>
       <field>
-        <column_name>Military</column_name>
+        <column_name>military</column_name>
         <stream_name>Military</stream_name>
       </field>
       <field>
-        <column_name>Music</column_name>
+        <column_name>music</column_name>
         <stream_name>Music</stream_name>
       </field>
       <field>
-        <column_name>Mythology</column_name>
+        <column_name>mythology</column_name>
         <stream_name>Mythology</stream_name>
       </field>
       <field>
-        <column_name>Organized Crime</column_name>
-        <stream_name>Organized Crime</stream_name>
-      </field>
-      <field>
-        <column_name>Otaku Culture</column_name>
-        <stream_name>Otaku Culture</stream_name>
-      </field>
-      <field>
-        <column_name>Parody</column_name>
+        <column_name>parody</column_name>
         <stream_name>Parody</stream_name>
       </field>
       <field>
-        <column_name>Performing Arts</column_name>
-        <stream_name>Performing Arts</stream_name>
-      </field>
-      <field>
-        <column_name>Pets</column_name>
+        <column_name>pets</column_name>
         <stream_name>Pets</stream_name>
       </field>
       <field>
-        <column_name>Psychological</column_name>
+        <column_name>psychological</column_name>
         <stream_name>Psychological</stream_name>
       </field>
       <field>
-        <column_name>Racing</column_name>
+        <column_name>racing</column_name>
         <stream_name>Racing</stream_name>
       </field>
       <field>
-        <column_name>Reincarnation</column_name>
+        <column_name>reincarnation</column_name>
         <stream_name>Reincarnation</stream_name>
       </field>
       <field>
-        <column_name>Reverse Harem</column_name>
-        <stream_name>Reverse Harem</stream_name>
-      </field>
-      <field>
-        <column_name>Romantic Subtext</column_name>
-        <stream_name>Romantic Subtext</stream_name>
-      </field>
-      <field>
-        <column_name>Samurai</column_name>
+        <column_name>samurai</column_name>
         <stream_name>Samurai</stream_name>
       </field>
       <field>
-        <column_name>School</column_name>
+        <column_name>school</column_name>
         <stream_name>School</stream_name>
       </field>
       <field>
-        <column_name>Showbiz</column_name>
+        <column_name>showbiz</column_name>
         <stream_name>Showbiz</stream_name>
       </field>
       <field>
-        <column_name>Space</column_name>
+        <column_name>space</column_name>
         <stream_name>Space</stream_name>
       </field>
       <field>
-        <column_name>Strategy Game</column_name>
-        <stream_name>Strategy Game</stream_name>
-      </field>
-      <field>
-        <column_name>Super Power</column_name>
-        <stream_name>Super Power</stream_name>
-      </field>
-      <field>
-        <column_name>Survival</column_name>
+        <column_name>survival</column_name>
         <stream_name>Survival</stream_name>
       </field>
       <field>
-        <column_name>Team Sports</column_name>
-        <stream_name>Team Sports</stream_name>
-      </field>
-      <field>
-        <column_name>Time Travel</column_name>
-        <stream_name>Time Travel</stream_name>
-      </field>
-      <field>
-        <column_name>Vampire</column_name>
+        <column_name>vampire</column_name>
         <stream_name>Vampire</stream_name>
       </field>
       <field>
-        <column_name>Video Game</column_name>
-        <stream_name>Video Game</stream_name>
-      </field>
-      <field>
-        <column_name>Villainess</column_name>
+        <column_name>villainess</column_name>
         <stream_name>Villainess</stream_name>
       </field>
       <field>
-        <column_name>Visual Arts</column_name>
-        <stream_name>Visual Arts</stream_name>
-      </field>
-      <field>
-        <column_name>Workplace</column_name>
+        <column_name>workplace</column_name>
         <stream_name>Workplace</stream_name>
       </field>
       <field>
-        <column_name>Josei</column_name>
+        <column_name>josei</column_name>
         <stream_name>Josei</stream_name>
       </field>
       <field>
-        <column_name>Kids</column_name>
+        <column_name>kids</column_name>
         <stream_name>Kids</stream_name>
       </field>
       <field>
-        <column_name>Seinen</column_name>
+        <column_name>seinen</column_name>
         <stream_name>Seinen</stream_name>
       </field>
       <field>
-        <column_name>Shoujo</column_name>
+        <column_name>shoujo</column_name>
         <stream_name>Shoujo</stream_name>
       </field>
       <field>
-        <column_name>Shounen</column_name>
+        <column_name>shounen</column_name>
         <stream_name>Shounen</stream_name>
+      </field>
+      <field>
+        <column_name>avant_garde</column_name>
+        <stream_name>Avant Garde</stream_name>
+      </field>
+      <field>
+        <column_name>award_winning</column_name>
+        <stream_name>Award Winning</stream_name>
+      </field>
+      <field>
+        <column_name>boys_love</column_name>
+        <stream_name>Boys Love</stream_name>
+      </field>
+      <field>
+        <column_name>girls_love</column_name>
+        <stream_name>Girls Love</stream_name>
+      </field>
+      <field>
+        <column_name>sci_fi</column_name>
+        <stream_name>Sci-Fi</stream_name>
+      </field>
+      <field>
+        <column_name>slice_of_life</column_name>
+        <stream_name>Slice of Life</stream_name>
+      </field>
+      <field>
+        <column_name>adult_cast</column_name>
+        <stream_name>Adult Cast</stream_name>
+      </field>
+      <field>
+        <column_name>combat_sports</column_name>
+        <stream_name>Combat Sports</stream_name>
+      </field>
+      <field>
+        <column_name>gag_humor</column_name>
+        <stream_name>Gag Humor</stream_name>
+      </field>
+      <field>
+        <column_name>high_stakes_game</column_name>
+        <stream_name>High Stakes Game</stream_name>
+      </field>
+      <field>
+        <column_name>idols_female</column_name>
+        <stream_name>Idols (Female)</stream_name>
+      </field>
+      <field>
+        <column_name>idols_male</column_name>
+        <stream_name>Idols (Male)</stream_name>
+      </field>
+      <field>
+        <column_name>love_polygon</column_name>
+        <stream_name>Love Polygon</stream_name>
+      </field>
+      <field>
+        <column_name>magical_sex_shift</column_name>
+        <stream_name>Magical Sex Shift</stream_name>
+      </field>
+      <field>
+        <column_name>mahou_shoujo</column_name>
+        <stream_name>Mahou Shoujo</stream_name>
+      </field>
+      <field>
+        <column_name>martial_arts</column_name>
+        <stream_name>Martial Arts</stream_name>
+      </field>
+      <field>
+        <column_name>organized_crime</column_name>
+        <stream_name>Organized Crime</stream_name>
+      </field>
+      <field>
+        <column_name>otaku_culture</column_name>
+        <stream_name>Otaku Culture</stream_name>
+      </field>
+      <field>
+        <column_name>performing_arts</column_name>
+        <stream_name>Performing Arts</stream_name>
+      </field>
+      <field>
+        <column_name>reverse_harem</column_name>
+        <stream_name>Reverse Harem</stream_name>
+      </field>
+      <field>
+        <column_name>romantic_subtext</column_name>
+        <stream_name>Romantic Subtext</stream_name>
+      </field>
+      <field>
+        <column_name>strategy_game</column_name>
+        <stream_name>Strategy Game</stream_name>
+      </field>
+      <field>
+        <column_name>super_power</column_name>
+        <stream_name>Super Power</stream_name>
+      </field>
+      <field>
+        <column_name>team_sports</column_name>
+        <stream_name>Team Sports</stream_name>
+      </field>
+      <field>
+        <column_name>time_travel</column_name>
+        <stream_name>Time Travel</stream_name>
+      </field>
+      <field>
+        <column_name>video_game</column_name>
+        <stream_name>Video Game</stream_name>
+      </field>
+      <field>
+        <column_name>visual_arts</column_name>
+        <stream_name>Visual Arts</stream_name>
       </field>
     </fields>
     <attributes/>

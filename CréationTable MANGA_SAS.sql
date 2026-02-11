@@ -35,7 +35,7 @@ CREATE TABLE genre (
 );
 
 CREATE TABLE manga_genre (
-    id INT PRIMARY KEY,
+    id INT,
     action INT,
     adventure INT,
     avant_garde INT,
@@ -115,4 +115,3 @@ CREATE TABLE manga_genre (
     shoujo INT,
     shounen INT
 );
-select * from manga_genre

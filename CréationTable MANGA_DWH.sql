@@ -51,8 +51,3 @@ CREATE TABLE FACT_Manga_Sales (
     FOREIGN KEY (demographic_id) REFERENCES dim_demographic(demographic_id),
     FOREIGN KEY (author_id) REFERENCES dim_author(author_id)
 );
-
-
-select * from dim_author;
-
-

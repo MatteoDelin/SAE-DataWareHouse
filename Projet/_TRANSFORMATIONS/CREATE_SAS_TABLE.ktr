@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>LOAD_DIM_Genre</name>
+    <name>CREATE_SAS_TABLE</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -427,65 +427,14 @@
     <clusterschemas>
     </clusterschemas>
     <created_user>-</created_user>
-    <created_date>2026/02/05 09:41:35.456</created_date>
+    <created_date>2026/02/12 00:20:27.457</created_date>
     <modified_user>-</modified_user>
-    <modified_date>2026/02/05 09:41:35.456</modified_date>
-    <key_for_session_key>H4sIAAAAAAAA/wMAAAAAAAAAAAA=</key_for_session_key>
+    <modified_date>2026/02/12 00:20:27.457</modified_date>
+    <key_for_session_key/>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
   </notepads>
-  <connection>
-    <name>Postgre_MANGADWH</name>
-    <server>localhost</server>
-    <type>POSTGRESQL</type>
-    <access>Native</access>
-    <database>MANGA_DWH</database>
-    <port>5432</port>
-    <username>postgres</username>
-    <password>Encrypted 2be98afc86aa7f2e4cb79ce10be9bbace</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute>
-        <code>FORCE_IDENTIFIERS_TO_LOWERCASE</code>
-        <attribute>N</attribute>
-      </attribute>
-      <attribute>
-        <code>FORCE_IDENTIFIERS_TO_UPPERCASE</code>
-        <attribute>N</attribute>
-      </attribute>
-      <attribute>
-        <code>IS_CLUSTERED</code>
-        <attribute>N</attribute>
-      </attribute>
-      <attribute>
-        <code>PORT_NUMBER</code>
-        <attribute>5432</attribute>
-      </attribute>
-      <attribute>
-        <code>PRESERVE_RESERVED_WORD_CASE</code>
-        <attribute>Y</attribute>
-      </attribute>
-      <attribute>
-        <code>QUOTE_ALL_FIELDS</code>
-        <attribute>N</attribute>
-      </attribute>
-      <attribute>
-        <code>SUPPORTS_BOOLEAN_DATA_TYPE</code>
-        <attribute>Y</attribute>
-      </attribute>
-      <attribute>
-        <code>SUPPORTS_TIMESTAMP_DATA_TYPE</code>
-        <attribute>Y</attribute>
-      </attribute>
-      <attribute>
-        <code>USE_POOLING</code>
-        <attribute>N</attribute>
-      </attribute>
-    </attributes>
-  </connection>
   <connection>
     <name>SAS</name>
     <server>localhost</server>
@@ -538,113 +487,10 @@
     </attributes>
   </connection>
   <order>
-    <hop>
-      <from>Extraction depuis table</from>
-      <to>Altération structure flux</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Altération structure flux</from>
-      <to>Création dopérations de calcul</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Création dopérations de calcul</from>
-      <to>Insertion dans table</to>
-      <enabled>Y</enabled>
-    </hop>
   </order>
   <step>
-    <name>Altération structure flux</name>
-    <type>SelectValues</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <name>id</name>
-        <rename>genre_id</rename>
-      </field>
-      <field>
-        <name>name</name>
-        <rename>genre_nom</rename>
-      </field>
-      <select_unspecified>N</select_unspecified>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>416</xloc>
-      <yloc>160</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Insertion dans table</name>
-    <type>TableOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>Postgre_MANGADWH</connection>
-    <schema>public</schema>
-    <table>dim_genre</table>
-    <commit>1000</commit>
-    <truncate>Y</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>Y</use_batch>
-    <specify_fields>Y</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-      <field>
-        <column_name>genre_id</column_name>
-        <stream_name>genre_id</stream_name>
-      </field>
-      <field>
-        <column_name>genre_nom</column_name>
-        <stream_name>genre_nom_1</stream_name>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>736</xloc>
-      <yloc>160</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Extraction depuis table</name>
-    <type>TableInput</type>
+    <name>Exécution script SQL</name>
+    <type>ExecSQL</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -654,89 +500,134 @@
       <schema_name/>
     </partitioning>
     <connection>SAS</connection>
-    <sql>SELECT
-  id
-, "name"
-, "count"
-FROM "public".genre
-</sql>
-    <limit>0</limit>
-    <lookup/>
     <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-    <cached_row_meta_active>N</cached_row_meta_active>
-    <row-meta>
-      <value-meta>
-        <type>Integer</type>
-        <storagetype>normal</storagetype>
-        <name>id</name>
-        <length>9</length>
-        <precision>0</precision>
-        <origin>Extraction depuis table</origin>
-        <comments>id</comments>
-        <conversion_Mask>####0;-####0</conversion_Mask>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol> </grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>fr_FR</date_format_locale>
-        <date_format_timezone>GMT+01:00</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>String</type>
-        <storagetype>normal</storagetype>
-        <name>name</name>
-        <length>100</length>
-        <precision>-1</precision>
-        <origin>Extraction depuis table</origin>
-        <comments>name</comments>
-        <conversion_Mask/>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol> </grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>fr_FR</date_format_locale>
-        <date_format_timezone>GMT+01:00</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-      <value-meta>
-        <type>Integer</type>
-        <storagetype>normal</storagetype>
-        <name>count</name>
-        <length>9</length>
-        <precision>0</precision>
-        <origin>Extraction depuis table</origin>
-        <comments>count</comments>
-        <conversion_Mask>####0;-####0</conversion_Mask>
-        <decimal_symbol>,</decimal_symbol>
-        <grouping_symbol> </grouping_symbol>
-        <currency_symbol/>
-        <trim_type>none</trim_type>
-        <case_insensitive>N</case_insensitive>
-        <collator_disabled>Y</collator_disabled>
-        <collator_strength>0</collator_strength>
-        <sort_descending>N</sort_descending>
-        <output_padding>N</output_padding>
-        <date_format_lenient>N</date_format_lenient>
-        <date_format_locale>fr_FR</date_format_locale>
-        <date_format_timezone>GMT+01:00</date_format_timezone>
-        <lenient_string_to_number>N</lenient_string_to_number>
-      </value-meta>
-    </row-meta>
+    <single_statement>N</single_statement>
+    <replace_variables>N</replace_variables>
+    <quoteString>N</quoteString>
+    <sql>-- Création de la table 'manga'
+CREATE TABLE manga (
+    id INT,
+    title VARCHAR(255),
+    title_en VARCHAR(255),
+    image_url VARCHAR(500),
+    chapters INT,
+    publishing BOOLEAN,
+    published_from DATE,
+    published_to DATE,
+    score DECIMAL(4, 2),
+    scored_by INT,
+    members INT,
+    favorites INT,
+    author INT
+);
+
+-- Création de la table 'best_selling'
+CREATE TABLE best_selling (
+    manga_series VARCHAR(255),
+    authors VARCHAR(500),
+    publisher VARCHAR(255),
+    demographic VARCHAR(100),
+    no_of_volumes INT,
+    serialized VARCHAR(100),
+    approximate_sales_millions DECIMAL(10, 2),
+    average_sales_per_volume DECIMAL(10, 2)
+);
+
+-- Table de référence des genres
+CREATE TABLE genre (
+    id INT,
+    name VARCHAR(100),
+    count INT
+);
+
+CREATE TABLE manga_genre (
+    id INT,
+    action INT,
+    adventure INT,
+    avant_garde INT,
+    award_winning INT,
+    boys_love INT,
+    comedy INT,
+    drama INT,
+    fantasy INT,
+    girls_love INT,
+    gourmet INT,
+    horror INT,
+    mystery INT,
+    romance INT,
+    sci_fi INT,
+    slice_of_life INT,
+    sports INT,
+    supernatural INT,
+    suspense INT,
+    ecchi INT,
+    erotica INT,
+    hentai INT,
+    adult_cast INT,
+    anthropomorphic INT,
+    cgdct INT,
+    childcare INT,
+    combat_sports INT,
+    crossdressing INT,
+    delinquents INT,
+    detective INT,
+    educational INT,
+    gag_humor INT,
+    gore INT,
+    harem INT,
+    high_stakes_game INT,
+    historical INT,
+    idols_female INT,
+    idols_male INT,
+    isekai INT,
+    iyashikei INT,
+    love_polygon INT,
+    magical_sex_shift INT,
+    mahou_shoujo INT,
+    martial_arts INT,
+    mecha INT,
+    medical INT,
+    memoir INT,
+    military INT,
+    music INT,
+    mythology INT,
+    organized_crime INT,
+    otaku_culture INT,
+    parody INT,
+    performing_arts INT,
+    pets INT,
+    psychological INT,
+    racing INT,
+    reincarnation INT,
+    reverse_harem INT,
+    romantic_subtext INT,
+    samurai INT,
+    school INT,
+    showbiz INT,
+    space INT,
+    strategy_game INT,
+    super_power INT,
+    survival INT,
+    team_sports INT,
+    time_travel INT,
+    vampire INT,
+    video_game INT,
+    villainess INT,
+    visual_arts INT,
+    workplace INT,
+    josei INT,
+    kids INT,
+    seinen INT,
+    shoujo INT,
+    shounen INT
+);</sql>
+    <set_params>N</set_params>
+    <insert_field/>
+    <update_field/>
+    <delete_field/>
+    <read_field/>
+    <arguments>
+    </arguments>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -746,49 +637,8 @@ FROM "public".genre
       </output>
     </remotesteps>
     <GUI>
-      <xloc>256</xloc>
-      <yloc>160</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Création dopérations de calcul</name>
-    <type>Calculator</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <failIfNoFile>Y</failIfNoFile>
-    <calculation>
-      <field_name>genre_nom</field_name>
-      <calc_type>LOWER_CASE</calc_type>
-      <field_a>genre_nom</field_a>
-      <field_b/>
-      <field_c/>
-      <value_type>None</value_type>
-      <value_length>-1</value_length>
-      <value_precision>-1</value_precision>
-      <remove>N</remove>
-      <conversion_mask/>
-      <decimal_symbol/>
-      <grouping_symbol/>
-      <currency_symbol/>
-    </calculation>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>576</xloc>
-      <yloc>160</yloc>
+      <xloc>320</xloc>
+      <yloc>176</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
