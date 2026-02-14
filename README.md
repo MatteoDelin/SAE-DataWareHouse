@@ -3,7 +3,7 @@
 **Équipe :** DELIN Mattéo - ALSHAWWA Tasnim - GROSJEAN Violette  
 **Promotion :** SD2 (IUT Lumière Lyon 2)  
 **Année Universitaire :** 2025-2026  
-**Outils :** Pentaho Data Integration (Spoon), MySQL, Power BI
+**Outils :** Pentaho Data Integration (Spoon), Postegre SQL, Power BI
 
 ---
 
