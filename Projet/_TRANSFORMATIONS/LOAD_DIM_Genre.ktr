@@ -549,8 +549,23 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
+      <from>Database lookup</from>
+      <to>Filtrage lignes</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Filtrage lignes</from>
+      <to>Mise à jour table</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
       <from>Création dopérations de calcul</from>
-      <to>Insertion dans table</to>
+      <to>Database lookup</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Filtrage lignes</from>
+      <to>Insertion dans table 2</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -567,12 +582,8 @@
     </partitioning>
     <fields>
       <field>
-        <name>id</name>
-        <rename>genre_id</rename>
-      </field>
-      <field>
         <name>name</name>
-        <rename>genre_nom</rename>
+        <rename/>
       </field>
       <select_unspecified>N</select_unspecified>
     </fields>
@@ -585,14 +596,14 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>416</xloc>
-      <yloc>160</yloc>
+      <xloc>384</xloc>
+      <yloc>208</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Insertion dans table</name>
-    <type>TableOutput</type>
+    <name>Création dopérations de calcul</name>
+    <type>Calculator</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -601,33 +612,22 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>Postgre_MANGADWH</connection>
-    <schema>public</schema>
-    <table>dim_genre</table>
-    <commit>1000</commit>
-    <truncate>Y</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>Y</use_batch>
-    <specify_fields>Y</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-      <field>
-        <column_name>genre_id</column_name>
-        <stream_name>genre_id</stream_name>
-      </field>
-      <field>
-        <column_name>genre_nom</column_name>
-        <stream_name>genre_nom_1</stream_name>
-      </field>
-    </fields>
+    <failIfNoFile>Y</failIfNoFile>
+    <calculation>
+      <field_name>genre_nom</field_name>
+      <calc_type>LOWER_CASE</calc_type>
+      <field_a>genre_nom</field_a>
+      <field_b/>
+      <field_c/>
+      <value_type>None</value_type>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <remove>N</remove>
+      <conversion_mask/>
+      <decimal_symbol/>
+      <grouping_symbol/>
+      <currency_symbol/>
+    </calculation>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -637,8 +637,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>736</xloc>
-      <yloc>160</yloc>
+      <xloc>544</xloc>
+      <yloc>208</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -746,14 +746,14 @@ FROM "public".genre
       </output>
     </remotesteps>
     <GUI>
-      <xloc>256</xloc>
-      <yloc>160</yloc>
+      <xloc>224</xloc>
+      <yloc>208</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Création dopérations de calcul</name>
-    <type>Calculator</type>
+    <name>Database lookup</name>
+    <type>DBLookup</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -762,22 +762,29 @@ FROM "public".genre
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <failIfNoFile>Y</failIfNoFile>
-    <calculation>
-      <field_name>genre_nom</field_name>
-      <calc_type>LOWER_CASE</calc_type>
-      <field_a>genre_nom</field_a>
-      <field_b/>
-      <field_c/>
-      <value_type>None</value_type>
-      <value_length>-1</value_length>
-      <value_precision>-1</value_precision>
-      <remove>N</remove>
-      <conversion_mask/>
-      <decimal_symbol/>
-      <grouping_symbol/>
-      <currency_symbol/>
-    </calculation>
+    <connection>Postgre_MANGADWH</connection>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema>public</schema>
+      <table>dim_genre</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>genre_nom</name>
+        <field>genre_nom</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>genre_id</name>
+        <rename>genre_id</rename>
+        <default/>
+        <type>Integer</type>
+      </value>
+    </lookup>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -787,8 +794,145 @@ FROM "public".genre
       </output>
     </remotesteps>
     <GUI>
-      <xloc>576</xloc>
-      <yloc>160</yloc>
+      <xloc>704</xloc>
+      <yloc>208</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Filtrage lignes</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <send_true_to>Insertion dans table 2</send_true_to>
+    <send_false_to>Mise à jour table</send_false_to>
+    <compare>
+      <condition>
+        <negated>N</negated>
+        <leftvalue>genre_id</leftvalue>
+        <function>=</function>
+        <rightvalue/>
+        <value>
+          <name>constant</name>
+          <type>Integer</type>
+          <text>0</text>
+          <length>-1</length>
+          <precision>0</precision>
+          <isnull>N</isnull>
+          <mask>####0;-####0</mask>
+        </value>
+      </condition>
+    </compare>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>832</xloc>
+      <yloc>208</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Insertion dans table 2</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Postgre_MANGADWH</connection>
+    <schema>public</schema>
+    <table>dim_genre</table>
+    <commit>1000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>N</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+      <field>
+        <column_name>genre_nom</column_name>
+        <stream_name>genre_nom</stream_name>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>976</xloc>
+      <yloc>144</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Mise à jour table</name>
+    <type>Update</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Postgre_MANGADWH</connection>
+    <skip_lookup>N</skip_lookup>
+    <commit>100</commit>
+    <use_batch>N</use_batch>
+    <error_ignored>N</error_ignored>
+    <ignore_flag_field/>
+    <lookup>
+      <schema>public</schema>
+      <table>dim_genre</table>
+      <key>
+        <name>genre_id</name>
+        <field>genre_id</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>genre_nom</name>
+        <rename>genre_nom</rename>
+      </value>
+    </lookup>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>976</xloc>
+      <yloc>272</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

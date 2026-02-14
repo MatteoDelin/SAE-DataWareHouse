@@ -539,11 +539,6 @@
   </connection>
   <order>
     <hop>
-      <from>Altération structure flux</from>
-      <to>Insertion dans table</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>Extraction depuis table</from>
       <to>Database lookup 3</to>
       <enabled>Y</enabled>
@@ -556,6 +551,26 @@
     <hop>
       <from>Filtrage lignes</from>
       <to>Altération structure flux</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Database lookup</from>
+      <to>Filtrage lignes 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Filtrage lignes 2</from>
+      <to>Insertion dans table 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Filtrage lignes 2</from>
+      <to>Mise à jour table</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Altération structure flux</from>
+      <to>Database lookup</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -571,10 +586,6 @@
       <schema_name/>
     </partitioning>
     <fields>
-      <field>
-        <name>id</name>
-        <rename>manga_id</rename>
-      </field>
       <field>
         <name>title</name>
         <rename>manga_title</rename>
@@ -602,8 +613,56 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>640</xloc>
-      <yloc>224</yloc>
+      <xloc>608</xloc>
+      <yloc>256</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Database lookup 3</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>SAS</connection>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema>public</schema>
+      <table>best_selling</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>Y</eat_row_on_failure>
+      <key>
+        <name>title</name>
+        <field>manga_series</field>
+        <condition>LIKE</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>manga_series</name>
+        <rename>IS_SELLING</rename>
+        <default>null</default>
+        <type>String</type>
+      </value>
+    </lookup>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>320</xloc>
+      <yloc>256</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -951,120 +1010,8 @@ FROM "public".manga
       </output>
     </remotesteps>
     <GUI>
-      <xloc>208</xloc>
-      <yloc>224</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Insertion dans table</name>
-    <type>TableOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>Postgre_MANGADWH</connection>
-    <schema>public</schema>
-    <table>dim_manga</table>
-    <commit>1000</commit>
-    <truncate>Y</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>Y</use_batch>
-    <specify_fields>Y</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-      <field>
-        <column_name>manga_id</column_name>
-        <stream_name>manga_id</stream_name>
-      </field>
-      <field>
-        <column_name>manga_title</column_name>
-        <stream_name>manga_title</stream_name>
-      </field>
-      <field>
-        <column_name>manga_title_en</column_name>
-        <stream_name>manga_title_en</stream_name>
-      </field>
-      <field>
-        <column_name>manga_published_from</column_name>
-        <stream_name>manga_published_from</stream_name>
-      </field>
-      <field>
-        <column_name>manga_published_to</column_name>
-        <stream_name>manga_published_to</stream_name>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>832</xloc>
-      <yloc>224</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Database lookup 3</name>
-    <type>DBLookup</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>SAS</connection>
-    <cache>N</cache>
-    <cache_load_all>N</cache_load_all>
-    <cache_size>0</cache_size>
-    <lookup>
-      <schema>public</schema>
-      <table>best_selling</table>
-      <orderby/>
-      <fail_on_multiple>N</fail_on_multiple>
-      <eat_row_on_failure>Y</eat_row_on_failure>
-      <key>
-        <name>title</name>
-        <field>manga_series</field>
-        <condition>LIKE</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>manga_series</name>
-        <rename>IS_SELLING</rename>
-        <default>null</default>
-        <type>String</type>
-      </value>
-    </lookup>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>352</xloc>
-      <yloc>224</yloc>
+      <xloc>176</xloc>
+      <yloc>256</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1098,8 +1045,217 @@ FROM "public".manga
       </output>
     </remotesteps>
     <GUI>
-      <xloc>496</xloc>
-      <yloc>224</yloc>
+      <xloc>464</xloc>
+      <yloc>256</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Database lookup</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Postgre_MANGADWH</connection>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema>public</schema>
+      <table>dim_manga</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>manga_title</name>
+        <field>manga_title</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>manga_id</name>
+        <rename>manga_id</rename>
+        <default/>
+        <type>Integer</type>
+      </value>
+    </lookup>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>752</xloc>
+      <yloc>256</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Filtrage lignes 2</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <send_true_to/>
+    <send_false_to>Mise à jour table</send_false_to>
+    <compare>
+      <condition>
+        <negated>N</negated>
+        <leftvalue>manga_id</leftvalue>
+        <function>=</function>
+        <rightvalue/>
+        <value>
+          <name>constant</name>
+          <type>Integer</type>
+          <text>0</text>
+          <length>-1</length>
+          <precision>0</precision>
+          <isnull>N</isnull>
+          <mask>####0;-####0</mask>
+        </value>
+      </condition>
+    </compare>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>864</xloc>
+      <yloc>256</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Insertion dans table 2</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Postgre_MANGADWH</connection>
+    <schema>public</schema>
+    <table>dim_manga</table>
+    <commit>1000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>N</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+      <field>
+        <column_name>manga_title</column_name>
+        <stream_name>manga_title</stream_name>
+      </field>
+      <field>
+        <column_name>manga_title_en</column_name>
+        <stream_name>manga_title_en</stream_name>
+      </field>
+      <field>
+        <column_name>manga_published_from</column_name>
+        <stream_name>manga_published_from</stream_name>
+      </field>
+      <field>
+        <column_name>manga_published_to</column_name>
+        <stream_name>manga_published_to</stream_name>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1008</xloc>
+      <yloc>192</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Mise à jour table</name>
+    <type>Update</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Postgre_MANGADWH</connection>
+    <skip_lookup>N</skip_lookup>
+    <commit>100</commit>
+    <use_batch>N</use_batch>
+    <error_ignored>N</error_ignored>
+    <ignore_flag_field/>
+    <lookup>
+      <schema>public</schema>
+      <table>dim_manga</table>
+      <key>
+        <name>manga_id</name>
+        <field>manga_id</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>manga_title</name>
+        <rename>manga_title</rename>
+      </value>
+      <value>
+        <name>manga_title_en</name>
+        <rename>manga_title_en</rename>
+      </value>
+      <value>
+        <name>manga_published_from</name>
+        <rename>manga_published_from</rename>
+      </value>
+      <value>
+        <name>manga_published_to</name>
+        <rename>manga_published_to</rename>
+      </value>
+    </lookup>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1008</xloc>
+      <yloc>320</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

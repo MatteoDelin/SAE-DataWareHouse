@@ -544,11 +544,6 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Dédoublonnage</from>
-      <to>Insertion dans table</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>Altération structure flux</from>
       <to>Tri lignes</to>
       <enabled>Y</enabled>
@@ -556,6 +551,26 @@
     <hop>
       <from>Extraction depuis table</from>
       <to>Altération structure flux</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Database lookup</from>
+      <to>Filtrage lignes</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Filtrage lignes</from>
+      <to>Insertion dans table 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Filtrage lignes</from>
+      <to>Mise à jour table</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Dédoublonnage</from>
+      <to>Database lookup</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -586,8 +601,56 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>352</xloc>
-      <yloc>144</yloc>
+      <xloc>336</xloc>
+      <yloc>224</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Database lookup</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Postgre_MANGADWH</connection>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema>public</schema>
+      <table>dim_demographic</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>demographic_nom</name>
+        <field>demographic_nom</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>demographic_id</name>
+        <rename>demographic_id</rename>
+        <default/>
+        <type>Integer</type>
+      </value>
+    </lookup>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>704</xloc>
+      <yloc>224</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -621,8 +684,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>592</xloc>
-      <yloc>144</yloc>
+      <xloc>576</xloc>
+      <yloc>224</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -850,13 +913,57 @@ FROM "public".best_selling
       </output>
     </remotesteps>
     <GUI>
-      <xloc>208</xloc>
-      <yloc>144</yloc>
+      <xloc>192</xloc>
+      <yloc>224</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Insertion dans table</name>
+    <name>Filtrage lignes</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <send_true_to>Insertion dans table</send_true_to>
+    <send_false_to>Mise à jour table</send_false_to>
+    <compare>
+      <condition>
+        <negated>N</negated>
+        <leftvalue>demographic_id</leftvalue>
+        <function>=</function>
+        <rightvalue/>
+        <value>
+          <name>constant</name>
+          <type>Integer</type>
+          <text>0</text>
+          <length>-1</length>
+          <precision>0</precision>
+          <isnull>N</isnull>
+          <mask>####0;-####0</mask>
+        </value>
+      </condition>
+    </compare>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>816</xloc>
+      <yloc>224</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Insertion dans table 2</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -870,9 +977,9 @@ FROM "public".best_selling
     <schema>public</schema>
     <table>dim_demographic</table>
     <commit>1000</commit>
-    <truncate>Y</truncate>
+    <truncate>N</truncate>
     <ignore_errors>N</ignore_errors>
-    <use_batch>Y</use_batch>
+    <use_batch>N</use_batch>
     <specify_fields>Y</specify_fields>
     <partitioning_enabled>N</partitioning_enabled>
     <partitioning_field/>
@@ -898,8 +1005,53 @@ FROM "public".best_selling
       </output>
     </remotesteps>
     <GUI>
-      <xloc>720</xloc>
-      <yloc>144</yloc>
+      <xloc>960</xloc>
+      <yloc>160</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Mise à jour table</name>
+    <type>Update</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Postgre_MANGADWH</connection>
+    <skip_lookup>N</skip_lookup>
+    <commit>100</commit>
+    <use_batch>N</use_batch>
+    <error_ignored>N</error_ignored>
+    <ignore_flag_field/>
+    <lookup>
+      <schema>public</schema>
+      <table>dim_demographic</table>
+      <key>
+        <name>demographic_id</name>
+        <field>demographic_id</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>demographic_nom</name>
+        <rename>demographic_nom</rename>
+      </value>
+    </lookup>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>960</xloc>
+      <yloc>288</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -940,8 +1092,8 @@ FROM "public".best_selling
       </output>
     </remotesteps>
     <GUI>
-      <xloc>480</xloc>
-      <yloc>144</yloc>
+      <xloc>464</xloc>
+      <yloc>224</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
