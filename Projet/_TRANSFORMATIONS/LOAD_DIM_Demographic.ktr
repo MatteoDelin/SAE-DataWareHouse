@@ -544,38 +544,38 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Altération structure flux</from>
+      <from>Garde que la démographie</from>
       <to>Tri lignes</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Extraction depuis table</from>
-      <to>Altération structure flux</to>
+      <from>Extraction depuis Best Selling</from>
+      <to>Garde que la démographie</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Database lookup</from>
-      <to>Filtrage lignes</to>
+      <from>Database lookup Dim_Demographic</from>
+      <to>Filtre démographie existant ou non</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Filtrage lignes</from>
-      <to>Insertion dans table 2</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Filtrage lignes</from>
-      <to>Mise à jour table</to>
+      <from>Filtre démographie existant ou non</from>
+      <to>Mise à jour Dim_Demographic</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Dédoublonnage</from>
-      <to>Database lookup</to>
+      <to>Database lookup Dim_Demographic</to>
+      <enabled>N</enabled>
+    </hop>
+    <hop>
+      <from>Filtre démographie existant ou non</from>
+      <to>Insertion dans Dim_Demographic</to>
       <enabled>Y</enabled>
     </hop>
   </order>
   <step>
-    <name>Altération structure flux</name>
+    <name>Garde que la démographie</name>
     <type>SelectValues</type>
     <description/>
     <distribute>Y</distribute>
@@ -607,7 +607,7 @@
     </GUI>
   </step>
   <step>
-    <name>Database lookup</name>
+    <name>Database lookup Dim_Demographic</name>
     <type>DBLookup</type>
     <description/>
     <distribute>Y</distribute>
@@ -636,7 +636,7 @@
       <value>
         <name>demographic_id</name>
         <rename>demographic_id</rename>
-        <default/>
+        <default>0</default>
         <type>Integer</type>
       </value>
     </lookup>
@@ -649,7 +649,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>704</xloc>
+      <xloc>752</xloc>
       <yloc>224</yloc>
       <draw>Y</draw>
     </GUI>
@@ -690,7 +690,7 @@
     </GUI>
   </step>
   <step>
-    <name>Extraction depuis table</name>
+    <name>Extraction depuis Best Selling</name>
     <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -913,13 +913,13 @@ FROM "public".best_selling
       </output>
     </remotesteps>
     <GUI>
-      <xloc>192</xloc>
+      <xloc>160</xloc>
       <yloc>224</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Filtrage lignes</name>
+    <name>Filtre démographie existant ou non</name>
     <type>FilterRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -929,8 +929,8 @@ FROM "public".best_selling
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <send_true_to>Insertion dans table</send_true_to>
-    <send_false_to>Mise à jour table</send_false_to>
+    <send_true_to>Insertion dans Dim_Demographic</send_true_to>
+    <send_false_to>Mise à jour Dim_Demographic</send_false_to>
     <compare>
       <condition>
         <negated>N</negated>
@@ -957,13 +957,13 @@ FROM "public".best_selling
       </output>
     </remotesteps>
     <GUI>
-      <xloc>816</xloc>
+      <xloc>944</xloc>
       <yloc>224</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Insertion dans table 2</name>
+    <name>Insertion dans Dim_Demographic</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -1005,13 +1005,13 @@ FROM "public".best_selling
       </output>
     </remotesteps>
     <GUI>
-      <xloc>960</xloc>
-      <yloc>160</yloc>
+      <xloc>1088</xloc>
+      <yloc>128</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Mise à jour table</name>
+    <name>Mise à jour Dim_Demographic</name>
     <type>Update</type>
     <description/>
     <distribute>Y</distribute>
@@ -1050,7 +1050,7 @@ FROM "public".best_selling
       </output>
     </remotesteps>
     <GUI>
-      <xloc>960</xloc>
+      <xloc>1088</xloc>
       <yloc>288</yloc>
       <draw>Y</draw>
     </GUI>

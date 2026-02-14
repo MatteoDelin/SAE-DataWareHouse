@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>CREATE_DWH_TABLE_P1</name>
+    <name>CREATE_DWH_TABLE</name>
     <description/>
     <extended_description/>
     <trans_version/>
     <trans_type>Normal</trans_type>
+    <trans_status>0</trans_status>
     <directory>/</directory>
     <parameters>
     </parameters>
@@ -430,7 +431,7 @@
     <created_date>2026/02/12 00:23:06.270</created_date>
     <modified_user>-</modified_user>
     <modified_date>2026/02/12 00:23:06.270</modified_date>
-    <key_for_session_key/>
+    <key_for_session_key>H4sIAAAAAAAA/wMAAAAAAAAAAAA=</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
@@ -489,7 +490,7 @@
   <order>
   </order>
   <step>
-    <name>Exécution script SQL</name>
+    <name>Création table Manga_DWH</name>
     <type>ExecSQL</type>
     <description/>
     <distribute>Y</distribute>
@@ -524,13 +525,40 @@ CREATE TABLE IF NOT EXISTS dim_demographic (
   demographic_nom     VARCHAR(50) NOT NULL
 );
 
-CREATE TABLE dim_manga (
+CREATE TABLE IF NOT EXISTS dim_manga (
     manga_id INT PRIMARY KEY,
     manga_title VARCHAR(255),
     manga_title_en VARCHAR(255),
     manga_published_from VARCHAR(50),
     manga_published_to VARCHAR(50)
-);</sql>
+);
+
+CREATE TABLE IF NOT EXISTS manga_genre (
+    manga_id INT,
+    genre_id INT,
+    PRIMARY KEY (manga_id, genre_id),
+    FOREIGN KEY (manga_id) REFERENCES dim_manga(manga_id),
+    FOREIGN KEY (genre_id) REFERENCES dim_genre(genre_id)
+);
+
+CREATE TABLE IF NOT EXISTS FACT_Manga_Sales (
+    manga_id INT NOT NULL,
+    publisher_id INT NOT NULL,
+    demographic_id INT NOT NULL,
+    author_id INT NOT NULL,
+    no_of_collected_volumes INT,
+    manga_chapters INT,
+    score DOUBLE PRECISION,
+    average_sales_per_volume_in_million DOUBLE PRECISION,
+    approximate_sales_in_million DOUBLE PRECISION,
+
+    PRIMARY KEY (manga_id, publisher_id, demographic_id, author_id),
+    FOREIGN KEY (manga_id) REFERENCES dim_manga(manga_id),
+    FOREIGN KEY (publisher_id) REFERENCES dim_publisher(publisher_id),
+    FOREIGN KEY (demographic_id) REFERENCES dim_demographic(demographic_id),
+    FOREIGN KEY (author_id) REFERENCES dim_author(author_id)
+);
+</sql>
     <set_params>N</set_params>
     <insert_field/>
     <update_field/>

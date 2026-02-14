@@ -539,33 +539,38 @@
   </connection>
   <order>
     <hop>
-      <from>Database lookup</from>
-      <to>Database lookup 1</to>
+      <from>Database lookup Dim_Author</from>
+      <to>Database lookup Dim_Demographic</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Database lookup 1</from>
-      <to>Database lookup 2</to>
+      <from>Database lookup Dim_Demographic</from>
+      <to>Database lookup Dim_Publisher</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Database lookup 2</from>
+      <from>Database lookup Dim_Publisher</from>
       <to>Altération structure flux</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Altération structure flux</from>
-      <to>Insertion dans table</to>
+      <to>Insertion dans Fact_Manga_Sales</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Extraction depuis table</from>
-      <to>Database lookup 3</to>
+      <from>Extraction depuis Best Selling</from>
+      <to>Database lookup manga</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Database lookup 3</from>
-      <to>Database lookup</to>
+      <from>Database lookup manga</from>
+      <to>Database lookup Dim_Manga</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Database lookup Dim_Manga</from>
+      <to>Database lookup Dim_Author</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -594,7 +599,7 @@
         <rename/>
       </field>
       <field>
-        <name>id</name>
+        <name>manga_id</name>
         <rename/>
       </field>
       <field>
@@ -628,13 +633,13 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>896</xloc>
+      <xloc>1184</xloc>
       <yloc>176</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Database lookup</name>
+    <name>Database lookup Dim_Author</name>
     <type>DBLookup</type>
     <description/>
     <distribute>Y</distribute>
@@ -676,13 +681,13 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>480</xloc>
+      <xloc>608</xloc>
       <yloc>176</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Database lookup 1</name>
+    <name>Database lookup Dim_Demographic</name>
     <type>DBLookup</type>
     <description/>
     <distribute>Y</distribute>
@@ -724,13 +729,13 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>608</xloc>
+      <xloc>816</xloc>
       <yloc>176</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Database lookup 2</name>
+    <name>Database lookup Dim_Publisher</name>
     <type>DBLookup</type>
     <description/>
     <distribute>Y</distribute>
@@ -772,14 +777,14 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>736</xloc>
+      <xloc>1024</xloc>
       <yloc>176</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Insertion dans table</name>
-    <type>TableOutput</type>
+    <name>Database lookup manga</name>
+    <type>DBLookup</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -788,61 +793,41 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>Postgre_MANGADWH</connection>
-    <schema>public</schema>
-    <table>fact_manga_sales</table>
-    <commit>1000</commit>
-    <truncate>Y</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>Y</use_batch>
-    <specify_fields>Y</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-      <field>
-        <column_name>no_of_collected_volumes</column_name>
-        <stream_name>no_of_volumes</stream_name>
-      </field>
-      <field>
-        <column_name>approximate_sales_in_million</column_name>
-        <stream_name>approximate_sales_millions</stream_name>
-      </field>
-      <field>
-        <column_name>average_sales_per_volume_in_million</column_name>
-        <stream_name>average_sales_per_volume</stream_name>
-      </field>
-      <field>
-        <column_name>manga_id</column_name>
-        <stream_name>id</stream_name>
-      </field>
-      <field>
-        <column_name>score</column_name>
-        <stream_name>score</stream_name>
-      </field>
-      <field>
-        <column_name>author_id</column_name>
-        <stream_name>author_id</stream_name>
-      </field>
-      <field>
-        <column_name>demographic_id</column_name>
-        <stream_name>demographic_id</stream_name>
-      </field>
-      <field>
-        <column_name>publisher_id</column_name>
-        <stream_name>publisher_id</stream_name>
-      </field>
-      <field>
-        <column_name>manga_chapters</column_name>
-        <stream_name>chapters</stream_name>
-      </field>
-    </fields>
+    <connection>SAS</connection>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema>public</schema>
+      <table>manga</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>Y</eat_row_on_failure>
+      <key>
+        <name>manga_series</name>
+        <field>title</field>
+        <condition>LIKE</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>title</name>
+        <rename>title</rename>
+        <default/>
+        <type>String</type>
+      </value>
+      <value>
+        <name>score</name>
+        <rename>score</rename>
+        <default/>
+        <type>Number</type>
+      </value>
+      <value>
+        <name>chapters</name>
+        <rename>chapters</rename>
+        <default/>
+        <type>Integer</type>
+      </value>
+    </lookup>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -852,13 +837,13 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1040</xloc>
+      <xloc>256</xloc>
       <yloc>176</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Extraction depuis table</name>
+    <name>Extraction depuis Best Selling</name>
     <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -1081,13 +1066,93 @@ FROM "public".best_selling
       </output>
     </remotesteps>
     <GUI>
-      <xloc>192</xloc>
+      <xloc>96</xloc>
       <yloc>176</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Database lookup 3</name>
+    <name>Insertion dans Fact_Manga_Sales</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Postgre_MANGADWH</connection>
+    <schema>public</schema>
+    <table>fact_manga_sales</table>
+    <commit>1000</commit>
+    <truncate>Y</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+      <field>
+        <column_name>no_of_collected_volumes</column_name>
+        <stream_name>no_of_volumes</stream_name>
+      </field>
+      <field>
+        <column_name>approximate_sales_in_million</column_name>
+        <stream_name>approximate_sales_millions</stream_name>
+      </field>
+      <field>
+        <column_name>average_sales_per_volume_in_million</column_name>
+        <stream_name>average_sales_per_volume</stream_name>
+      </field>
+      <field>
+        <column_name>manga_id</column_name>
+        <stream_name>manga_id</stream_name>
+      </field>
+      <field>
+        <column_name>score</column_name>
+        <stream_name>score</stream_name>
+      </field>
+      <field>
+        <column_name>author_id</column_name>
+        <stream_name>author_id</stream_name>
+      </field>
+      <field>
+        <column_name>demographic_id</column_name>
+        <stream_name>demographic_id</stream_name>
+      </field>
+      <field>
+        <column_name>publisher_id</column_name>
+        <stream_name>publisher_id</stream_name>
+      </field>
+      <field>
+        <column_name>manga_chapters</column_name>
+        <stream_name>chapters</stream_name>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1360</xloc>
+      <yloc>176</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Database lookup Dim_Manga</name>
     <type>DBLookup</type>
     <description/>
     <distribute>Y</distribute>
@@ -1097,45 +1162,27 @@ FROM "public".best_selling
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>SAS</connection>
+    <connection>Postgre_MANGADWH</connection>
     <cache>N</cache>
     <cache_load_all>N</cache_load_all>
     <cache_size>0</cache_size>
     <lookup>
       <schema>public</schema>
-      <table>manga</table>
+      <table>dim_manga</table>
       <orderby/>
       <fail_on_multiple>N</fail_on_multiple>
       <eat_row_on_failure>Y</eat_row_on_failure>
       <key>
         <name>manga_series</name>
-        <field>title</field>
+        <field>manga_title</field>
         <condition>LIKE</condition>
         <name2/>
       </key>
       <value>
-        <name>id</name>
-        <rename>id</rename>
+        <name>manga_id</name>
+        <rename>manga_id</rename>
         <default/>
-        <type>Integer</type>
-      </value>
-      <value>
-        <name>title</name>
-        <rename>title</rename>
-        <default/>
-        <type>String</type>
-      </value>
-      <value>
-        <name>score</name>
-        <rename>score</rename>
-        <default/>
-        <type>Number</type>
-      </value>
-      <value>
-        <name>chapters</name>
-        <rename>chapters</rename>
-        <default/>
-        <type>Integer</type>
+        <type>None</type>
       </value>
     </lookup>
     <attributes/>
@@ -1147,7 +1194,7 @@ FROM "public".best_selling
       </output>
     </remotesteps>
     <GUI>
-      <xloc>336</xloc>
+      <xloc>432</xloc>
       <yloc>176</yloc>
       <draw>Y</draw>
     </GUI>

@@ -545,11 +545,11 @@
     </hop>
     <hop>
       <from>Altération structure flux</from>
-      <to>Insertion dans table</to>
+      <to>Insertion dans Manga_Genre</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Extraction depuis table</from>
+      <from>Extraction depuis Manga_Genre</from>
       <to>Normalisation ligne</to>
       <enabled>Y</enabled>
     </hop>
@@ -560,26 +560,26 @@
     </hop>
     <hop>
       <from>Replace in string</from>
-      <to>Database lookup</to>
+      <to>Database lookup Dim_Genre</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Database lookup</from>
+      <from>Database lookup Dim_Genre</from>
       <to>Filtrage lignes 2</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Database lookup 2</from>
-      <to>Filtrage lignes 2 2</to>
+      <from>Database lookup Dim_Manga</from>
+      <to>Filtrage lignes 3</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Filtrage lignes 2</from>
-      <to>Database lookup 2</to>
+      <to>Database lookup Dim_Manga</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Filtrage lignes 2 2</from>
+      <from>Filtrage lignes 3</from>
       <to>Altération structure flux</to>
       <enabled>Y</enabled>
     </hop>
@@ -614,13 +614,13 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1088</xloc>
-      <yloc>160</yloc>
+      <xloc>1136</xloc>
+      <yloc>144</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Database lookup</name>
+    <name>Database lookup Dim_Genre</name>
     <type>DBLookup</type>
     <description/>
     <distribute>Y</distribute>
@@ -662,13 +662,61 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>624</xloc>
-      <yloc>160</yloc>
+      <xloc>592</xloc>
+      <yloc>144</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Extraction depuis table</name>
+    <name>Database lookup Dim_Manga</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Postgre_MANGADWH</connection>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema>public</schema>
+      <table>dim_manga</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>id</name>
+        <field>manga_id</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>manga_title</name>
+        <rename>IS_INSERT</rename>
+        <default>null</default>
+        <type>String</type>
+      </value>
+    </lookup>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>864</xloc>
+      <yloc>144</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Extraction depuis Manga_Genre</name>
     <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -2595,8 +2643,8 @@ FROM "public".manga_genre
       </output>
     </remotesteps>
     <GUI>
-      <xloc>64</xloc>
-      <yloc>160</yloc>
+      <xloc>80</xloc>
+      <yloc>144</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2639,8 +2687,8 @@ FROM "public".manga_genre
       </output>
     </remotesteps>
     <GUI>
-      <xloc>320</xloc>
-      <yloc>160</yloc>
+      <xloc>352</xloc>
+      <yloc>144</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2655,7 +2703,7 @@ FROM "public".manga_genre
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <send_true_to>Database lookup 2</send_true_to>
+    <send_true_to>Database lookup Dim_Manga</send_true_to>
     <send_false_to/>
     <compare>
       <condition>
@@ -2683,13 +2731,57 @@ FROM "public".manga_genre
       </output>
     </remotesteps>
     <GUI>
-      <xloc>736</xloc>
-      <yloc>160</yloc>
+      <xloc>720</xloc>
+      <yloc>144</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Insertion dans table</name>
+    <name>Filtrage lignes 3</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <send_true_to>Altération structure flux</send_true_to>
+    <send_false_to/>
+    <compare>
+      <condition>
+        <negated>N</negated>
+        <leftvalue>IS_INSERT</leftvalue>
+        <function>&lt;></function>
+        <rightvalue/>
+        <value>
+          <name>constant</name>
+          <type>String</type>
+          <text>null</text>
+          <length>-1</length>
+          <precision>-1</precision>
+          <isnull>N</isnull>
+          <mask/>
+        </value>
+      </condition>
+    </compare>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1008</xloc>
+      <yloc>144</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Insertion dans Manga_Genre</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -2735,8 +2827,8 @@ FROM "public".manga_genre
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1232</xloc>
-      <yloc>160</yloc>
+      <xloc>1280</xloc>
+      <yloc>144</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -3153,8 +3245,8 @@ FROM "public".manga_genre
       </output>
     </remotesteps>
     <GUI>
-      <xloc>208</xloc>
-      <yloc>160</yloc>
+      <xloc>240</xloc>
+      <yloc>144</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -3193,99 +3285,7 @@ FROM "public".manga_genre
     </remotesteps>
     <GUI>
       <xloc>464</xloc>
-      <yloc>160</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Database lookup 2</name>
-    <type>DBLookup</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>Postgre_MANGADWH</connection>
-    <cache>N</cache>
-    <cache_load_all>N</cache_load_all>
-    <cache_size>0</cache_size>
-    <lookup>
-      <schema>public</schema>
-      <table>dim_manga</table>
-      <orderby/>
-      <fail_on_multiple>N</fail_on_multiple>
-      <eat_row_on_failure>N</eat_row_on_failure>
-      <key>
-        <name>id</name>
-        <field>manga_id</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>manga_title</name>
-        <rename>IS_INSERT</rename>
-        <default>null</default>
-        <type>String</type>
-      </value>
-    </lookup>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>848</xloc>
-      <yloc>160</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Filtrage lignes 2 2</name>
-    <type>FilterRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <send_true_to>Altération structure flux</send_true_to>
-    <send_false_to/>
-    <compare>
-      <condition>
-        <negated>N</negated>
-        <leftvalue>IS_INSERT</leftvalue>
-        <function>&lt;></function>
-        <rightvalue/>
-        <value>
-          <name>constant</name>
-          <type>String</type>
-          <text>null</text>
-          <length>-1</length>
-          <precision>-1</precision>
-          <isnull>N</isnull>
-          <mask/>
-        </value>
-      </condition>
-    </compare>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>960</xloc>
-      <yloc>160</yloc>
+      <yloc>144</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

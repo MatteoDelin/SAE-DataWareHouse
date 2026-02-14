@@ -539,39 +539,39 @@
   </connection>
   <order>
     <hop>
-      <from>Extraction depuis table</from>
-      <to>Altération structure flux</to>
+      <from>Extraction depuis Genre</from>
+      <to>Garde que le nom</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Altération structure flux</from>
-      <to>Création dopérations de calcul</to>
+      <from>Garde que le nom</from>
+      <to>passe le nom en minuscule</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Database lookup</from>
+      <from>Database lookup Dim_Genre</from>
       <to>Filtrage lignes</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Filtrage lignes</from>
-      <to>Mise à jour table</to>
+      <to>Mise à jour Dim_Genre</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Création dopérations de calcul</from>
-      <to>Database lookup</to>
+      <from>passe le nom en minuscule</from>
+      <to>Database lookup Dim_Genre</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Filtrage lignes</from>
-      <to>Insertion dans table 2</to>
+      <to>Insertion dans Dim_Genre</to>
       <enabled>Y</enabled>
     </hop>
   </order>
   <step>
-    <name>Altération structure flux</name>
-    <type>SelectValues</type>
+    <name>Database lookup Dim_Genre</name>
+    <type>DBLookup</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -580,13 +580,29 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <fields>
-      <field>
-        <name>name</name>
-        <rename/>
-      </field>
-      <select_unspecified>N</select_unspecified>
-    </fields>
+    <connection>Postgre_MANGADWH</connection>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema>public</schema>
+      <table>dim_genre</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>genre_nom</name>
+        <field>genre_nom</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>genre_id</name>
+        <rename>genre_id</rename>
+        <default>0</default>
+        <type>Integer</type>
+      </value>
+    </lookup>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -596,54 +612,13 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>384</xloc>
-      <yloc>208</yloc>
+      <xloc>656</xloc>
+      <yloc>240</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Création dopérations de calcul</name>
-    <type>Calculator</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <failIfNoFile>Y</failIfNoFile>
-    <calculation>
-      <field_name>genre_nom</field_name>
-      <calc_type>LOWER_CASE</calc_type>
-      <field_a>genre_nom</field_a>
-      <field_b/>
-      <field_c/>
-      <value_type>None</value_type>
-      <value_length>-1</value_length>
-      <value_precision>-1</value_precision>
-      <remove>N</remove>
-      <conversion_mask/>
-      <decimal_symbol/>
-      <grouping_symbol/>
-      <currency_symbol/>
-    </calculation>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>544</xloc>
-      <yloc>208</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Extraction depuis table</name>
+    <name>Extraction depuis Genre</name>
     <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -746,56 +721,8 @@ FROM "public".genre
       </output>
     </remotesteps>
     <GUI>
-      <xloc>224</xloc>
-      <yloc>208</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Database lookup</name>
-    <type>DBLookup</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>Postgre_MANGADWH</connection>
-    <cache>N</cache>
-    <cache_load_all>N</cache_load_all>
-    <cache_size>0</cache_size>
-    <lookup>
-      <schema>public</schema>
-      <table>dim_genre</table>
-      <orderby/>
-      <fail_on_multiple>N</fail_on_multiple>
-      <eat_row_on_failure>N</eat_row_on_failure>
-      <key>
-        <name>genre_nom</name>
-        <field>genre_nom</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>genre_id</name>
-        <rename>genre_id</rename>
-        <default/>
-        <type>Integer</type>
-      </value>
-    </lookup>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>704</xloc>
-      <yloc>208</yloc>
+      <xloc>176</xloc>
+      <yloc>240</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -810,8 +737,8 @@ FROM "public".genre
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <send_true_to>Insertion dans table 2</send_true_to>
-    <send_false_to>Mise à jour table</send_false_to>
+    <send_true_to>Insertion dans Dim_Genre</send_true_to>
+    <send_false_to>Mise à jour Dim_Genre</send_false_to>
     <compare>
       <condition>
         <negated>N</negated>
@@ -838,13 +765,44 @@ FROM "public".genre
       </output>
     </remotesteps>
     <GUI>
-      <xloc>832</xloc>
-      <yloc>208</yloc>
+      <xloc>784</xloc>
+      <yloc>240</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Insertion dans table 2</name>
+    <name>Garde que le nom</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>name</name>
+      </field>
+      <select_unspecified>N</select_unspecified>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>336</xloc>
+      <yloc>240</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Insertion dans Dim_Genre</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -886,13 +844,13 @@ FROM "public".genre
       </output>
     </remotesteps>
     <GUI>
-      <xloc>976</xloc>
-      <yloc>144</yloc>
+      <xloc>928</xloc>
+      <yloc>176</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Mise à jour table</name>
+    <name>Mise à jour Dim_Genre</name>
     <type>Update</type>
     <description/>
     <distribute>Y</distribute>
@@ -931,8 +889,49 @@ FROM "public".genre
       </output>
     </remotesteps>
     <GUI>
-      <xloc>976</xloc>
-      <yloc>272</yloc>
+      <xloc>928</xloc>
+      <yloc>304</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>passe le nom en minuscule</name>
+    <type>Calculator</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <failIfNoFile>Y</failIfNoFile>
+    <calculation>
+      <field_name>genre_nom</field_name>
+      <calc_type>LOWER_CASE</calc_type>
+      <field_a>name</field_a>
+      <field_b/>
+      <field_c/>
+      <value_type>None</value_type>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <remove>N</remove>
+      <conversion_mask/>
+      <decimal_symbol/>
+      <grouping_symbol/>
+      <currency_symbol/>
+    </calculation>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>480</xloc>
+      <yloc>240</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

@@ -430,7 +430,7 @@
     <created_date>2026/02/12 00:20:27.457</created_date>
     <modified_user>-</modified_user>
     <modified_date>2026/02/12 00:20:27.457</modified_date>
-    <key_for_session_key/>
+    <key_for_session_key>H4sIAAAAAAAA/wMAAAAAAAAAAAA=</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
@@ -489,7 +489,7 @@
   <order>
   </order>
   <step>
-    <name>Exécution script SQL</name>
+    <name>Création table Manga_SAS</name>
     <type>ExecSQL</type>
     <description/>
     <distribute>Y</distribute>
@@ -505,7 +505,7 @@
     <replace_variables>N</replace_variables>
     <quoteString>N</quoteString>
     <sql>-- Création de la table 'manga'
-CREATE TABLE manga (
+CREATE TABLE IF NOT EXISTS manga (
     id INT,
     title VARCHAR(255),
     title_en VARCHAR(255),
@@ -522,7 +522,7 @@ CREATE TABLE manga (
 );
 
 -- Création de la table 'best_selling'
-CREATE TABLE best_selling (
+CREATE TABLE IF NOT EXISTS best_selling (
     manga_series VARCHAR(255),
     authors VARCHAR(500),
     publisher VARCHAR(255),
@@ -534,13 +534,13 @@ CREATE TABLE best_selling (
 );
 
 -- Table de référence des genres
-CREATE TABLE genre (
+CREATE TABLE IF NOT EXISTS genre (
     id INT,
     name VARCHAR(100),
     count INT
 );
 
-CREATE TABLE manga_genre (
+CREATE TABLE IF NOT EXISTS manga_genre (
     id INT,
     action INT,
     adventure INT,

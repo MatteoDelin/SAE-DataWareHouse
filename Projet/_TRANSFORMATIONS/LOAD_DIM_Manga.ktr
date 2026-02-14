@@ -539,43 +539,43 @@
   </connection>
   <order>
     <hop>
-      <from>Extraction depuis table</from>
-      <to>Database lookup 3</to>
+      <from>Extraction depuis Manga</from>
+      <to>Database lookup Best Selling</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Database lookup 3</from>
-      <to>Filtrage lignes</to>
+      <from>Database lookup Best Selling</from>
+      <to>Filtre les manga sans mesures</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Filtrage lignes</from>
-      <to>Altération structure flux</to>
+      <from>Filtre les manga sans mesures</from>
+      <to>Renome les champs</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Database lookup</from>
+      <from>Database lookup Dim_Manga</from>
       <to>Filtrage lignes 2</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Filtrage lignes 2</from>
-      <to>Insertion dans table 2</to>
+      <to>Insertion dans Dim_Manga</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Filtrage lignes 2</from>
-      <to>Mise à jour table</to>
+      <to>Mise à jour Dim_Manga</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Altération structure flux</from>
-      <to>Database lookup</to>
+      <from>Renome les champs</from>
+      <to>Database lookup Dim_Manga</to>
       <enabled>Y</enabled>
     </hop>
   </order>
   <step>
-    <name>Altération structure flux</name>
+    <name>Renome les champs</name>
     <type>SelectValues</type>
     <description/>
     <distribute>Y</distribute>
@@ -613,13 +613,61 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>608</xloc>
+      <xloc>688</xloc>
       <yloc>256</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Database lookup 3</name>
+    <name>Database lookup Dim_Manga</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Postgre_MANGADWH</connection>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema>public</schema>
+      <table>dim_manga</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>manga_title</name>
+        <field>manga_title</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>manga_id</name>
+        <rename>manga_id</rename>
+        <default>0</default>
+        <type>Integer</type>
+      </value>
+    </lookup>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>832</xloc>
+      <yloc>256</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Database lookup Best Selling</name>
     <type>DBLookup</type>
     <description/>
     <distribute>Y</distribute>
@@ -667,7 +715,7 @@
     </GUI>
   </step>
   <step>
-    <name>Extraction depuis table</name>
+    <name>Extraction depuis Manga</name>
     <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -1010,13 +1058,13 @@ FROM "public".manga
       </output>
     </remotesteps>
     <GUI>
-      <xloc>176</xloc>
+      <xloc>144</xloc>
       <yloc>256</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Filtrage lignes</name>
+    <name>Filtre les manga sans mesures</name>
     <type>FilterRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -1026,7 +1074,7 @@ FROM "public".manga
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <send_true_to>Altération structure flux</send_true_to>
+    <send_true_to>Renome les champs</send_true_to>
     <send_false_to/>
     <compare>
       <condition>
@@ -1045,55 +1093,7 @@ FROM "public".manga
       </output>
     </remotesteps>
     <GUI>
-      <xloc>464</xloc>
-      <yloc>256</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Database lookup</name>
-    <type>DBLookup</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>Postgre_MANGADWH</connection>
-    <cache>N</cache>
-    <cache_load_all>N</cache_load_all>
-    <cache_size>0</cache_size>
-    <lookup>
-      <schema>public</schema>
-      <table>dim_manga</table>
-      <orderby/>
-      <fail_on_multiple>N</fail_on_multiple>
-      <eat_row_on_failure>N</eat_row_on_failure>
-      <key>
-        <name>manga_title</name>
-        <field>manga_title</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>manga_id</name>
-        <rename>manga_id</rename>
-        <default/>
-        <type>Integer</type>
-      </value>
-    </lookup>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>752</xloc>
+      <xloc>512</xloc>
       <yloc>256</yloc>
       <draw>Y</draw>
     </GUI>
@@ -1110,7 +1110,7 @@ FROM "public".manga
       <schema_name/>
     </partitioning>
     <send_true_to/>
-    <send_false_to>Mise à jour table</send_false_to>
+    <send_false_to>Mise à jour Dim_Manga</send_false_to>
     <compare>
       <condition>
         <negated>N</negated>
@@ -1137,13 +1137,13 @@ FROM "public".manga
       </output>
     </remotesteps>
     <GUI>
-      <xloc>864</xloc>
+      <xloc>976</xloc>
       <yloc>256</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Insertion dans table 2</name>
+    <name>Insertion dans Dim_Manga</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -1197,13 +1197,13 @@ FROM "public".manga
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1008</xloc>
+      <xloc>1120</xloc>
       <yloc>192</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Mise à jour table</name>
+    <name>Mise à jour Dim_Manga</name>
     <type>Update</type>
     <description/>
     <distribute>Y</distribute>
@@ -1254,7 +1254,7 @@ FROM "public".manga
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1008</xloc>
+      <xloc>1120</xloc>
       <yloc>320</yloc>
       <draw>Y</draw>
     </GUI>
